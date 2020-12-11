@@ -28,36 +28,58 @@ namespace Connector_SFTP_GUI_Prototip
         }
         private void SaveActualSettings()
         {
-            Settings.LocalFolderPath = this.LocalFolderPathTextBox.Text;
-            Settings.CsvTaskFilePath = this.CsvTaskFilePathTextBox.Text;
-            Settings.CsvLogFilePath = this.CsvLogFilePathTextBox.Text;
-            Settings.CsvExcListPath = this.CsvExcFilePathTextBox.Text;
+            Settings.SetLocalFolderPath(this.LocalFolderPathTextBox.Text);
+            Settings.SetCsvTaskFilePath(this.CsvTaskFilePathTextBox.Text);
+            Settings.SetCsvLogFilePath(this.CsvLogFilePathTextBox.Text);
+            Settings.SetCsvExcListPath(this.CsvExcFilePathTextBox.Text);
         }
         private void SetDefaultSettings()
         {
-            Settings.LocalFolderPath = "C:\\Users\\User\\source\\test";
-            Settings.CsvTaskFilePath = "csvList.csv";
-            Settings.CsvLogFilePath = "csvLog.csv";
-            Settings.CsvExcListPath = "csvExc.csv";
+            Settings.SetLocalFolderPath("");
+            Settings.SetCsvTaskFilePath("");
+            Settings.SetCsvLogFilePath("");
+            Settings.SetCsvExcListPath("");
             FillActualSettings();
         }
         private void SaveSettingsButton_Click(object sender, EventArgs e)
         {
             SaveActualSettings();
+            //SaveSettingsFile();
+            //Save to config file
             this.Close();
         }
 
         //
-        //ОБЩИЙ МЕТОД ДЛЯ ВСЕХ PATH_BUTTON 
         //OpenFileDialod\SaveFileDialog | FolderBrowserDialog
         //Использовать контрол для вызова системного окна поиска ShowDialog
         //
-        private void GetFilePath()
+        private string GetFolderPath()
         {
-            if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.Cancel)
+                return null;
+
+            return folderBrowserDialog.SelectedPath;
+        }
+
+        private void LocalFolderPathChangeButton_Click(object sender, EventArgs e)
+        {
+            string path = GetFolderPath();
+            if (path == null)
                 return;
 
-            //string filePath = openFileDialog.
+            //ASQ FORM (yes/no)
+            //Set all paths ??
+            //Yes(all)
+            Settings.SetLocalFolderPath(path);
+            Settings.SetCsvLogFilePath(path);
+            Settings.SetCsvExcListPath(path);
+            //No(just)
+            //Settings.SetCsvTaskFilePath(path);
+
+            FillActualSettings();
         }
+        // ..FolderPathChange.._Click(..)
+        //For CsvLogFilePath
+        //For CsvExcListPath
     }
 }

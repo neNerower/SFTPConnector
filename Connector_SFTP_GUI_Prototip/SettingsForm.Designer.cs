@@ -43,7 +43,7 @@
             this.CsvExcFilePathTextBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.SaveSettingsButton = new System.Windows.Forms.Button();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -143,6 +143,7 @@
             this.LocalFolderPathChangeButton.TabIndex = 4;
             this.LocalFolderPathChangeButton.Text = "Choose";
             this.LocalFolderPathChangeButton.UseVisualStyleBackColor = true;
+            this.LocalFolderPathChangeButton.Click += new System.EventHandler(this.LocalFolderPathChangeButton_Click);
             // 
             // CsvTaskFilePathChangeButton
             // 
@@ -249,10 +250,9 @@
             this.SaveSettingsButton.UseVisualStyleBackColor = true;
             this.SaveSettingsButton.Click += new System.EventHandler(this.SaveSettingsButton_Click);
             // 
-            // openFileDialog
+            // folderBrowserDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog1";
-            this.openFileDialog.Filter = "csv file (*.csv)|*.csv | text file (*.txt)|*.txt";
+            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.Windows;
             // 
             // SettingsForm
             // 
@@ -289,6 +289,6 @@
         private System.Windows.Forms.TextBox CsvExcFilePathTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button SaveSettingsButton;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }

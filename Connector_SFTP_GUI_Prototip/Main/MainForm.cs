@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,18 @@ namespace Connector_SFTP_GUI_Prototip
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //УСТАНОВИТЬ ЗАНЧЕНИЕ ПУТИ ДО ФАЙЛА
-            InitData();
+            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //using(StreamReader reader = new StreamReader(path))
+                using(FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
+                {
+                    //MessageBox.Show(fileStream.Name);
+                    Settings.SetCsvTaskFilePath(fileStream.Name);
+                }
+
+                ///
+                InitData();
+            }
         }
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {

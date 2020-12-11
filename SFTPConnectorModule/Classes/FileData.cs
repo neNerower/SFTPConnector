@@ -36,7 +36,7 @@ namespace SFTPConnectorModule
             var dm = new DirectoryManager();
 
             PathRemoteFile = pathRemoteFile;
-            PathLocalFile = dm.PathCombiner(Settings.LocalFolderPath + "\\" + Host, PathRemoteFile);
+            PathLocalFile = dm.RmPathCombiner(Settings.LocalFolderPath + "\\" + Host, PathRemoteFile);
 
             dm.MkDir(PathLocalFile);
         }

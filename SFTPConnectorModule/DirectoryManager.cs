@@ -5,7 +5,7 @@ namespace SFTPConnectorModule
 {
     class DirectoryManager
     {
-        public string PathCombiner(string locPath, string rmPath)
+        public string RmPathCombiner(string locPath, string rmPath)
         {
             rmPath = rmPath.Replace("/", "\\");
             //Console.WriteLine(rmPath);
@@ -32,21 +32,17 @@ namespace SFTPConnectorModule
             {
                 path = RmFilenameFromPath(path);
 
-                // Determine whether the directory exists.
+                // Determine whether the directory exists
                 if (Directory.Exists(path))
                 {
                     Console.WriteLine("That path exists already.");
                     return;
                 }
 
-                // Try to create the directory.
+                // Try to create the directory
                 DirectoryInfo di = Directory.CreateDirectory(path);
                 Console.WriteLine("The directory \"{0}\" was created successfully at {1}.", path, Directory.GetCreationTime(path));
             }
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("The process failed: {0}", e.ToString());
-            //}
             finally { }
         }
     } 
