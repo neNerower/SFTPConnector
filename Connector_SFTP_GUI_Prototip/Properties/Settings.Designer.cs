@@ -25,7 +25,7 @@ namespace Connector_SFTP_GUI_Prototip.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
         public string HashProgrammPassword {
             get {
                 return ((string)(this["HashProgrammPassword"]));

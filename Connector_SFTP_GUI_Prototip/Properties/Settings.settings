@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="HashProgrammPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="LocalFolderPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\User\source\test</Value>

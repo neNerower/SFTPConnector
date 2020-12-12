@@ -20,7 +20,8 @@ namespace SFTPConnectorModule
         {
             if (!File.Exists(Settings.CsvTaskFilePath))
             {
-                File.Create(Settings.CsvTaskFilePath).Close();                
+                return new List<FileData>();
+                //File.Create(Settings.CsvTaskFilePath).Close();                
             }
 
             using (StreamReader streamReader = new StreamReader(Settings.CsvTaskFilePath))

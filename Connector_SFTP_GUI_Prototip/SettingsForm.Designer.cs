@@ -252,7 +252,7 @@
             // 
             // folderBrowserDialog
             // 
-            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.Windows;
+            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.DesktopDirectory;
             // 
             // SettingsForm
             // 

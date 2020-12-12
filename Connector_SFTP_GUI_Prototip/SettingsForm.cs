@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace Connector_SFTP_GUI_Prototip
             Properties.Settings.Default.CsvTaskFilePath = this.CsvTaskFilePathTextBox.Text;
             Properties.Settings.Default.CsvLogFilePath = this.CsvLogFilePathTextBox.Text;
             Properties.Settings.Default.CsvExcListPath = this.CsvExcFilePathTextBox.Text;
+            Properties.Settings.Default.Save();
         }
 
 
@@ -70,13 +72,14 @@ namespace Connector_SFTP_GUI_Prototip
             //ASQ FORM (yes/no)
             //Set all paths ??
             //Yes(all)
-            Settings.SetLocalFolderPath(path);
-            Settings.SetCsvLogFilePath(path);
-            Settings.SetCsvExcListPath(path);
+            this.LocalFolderPathTextBox.Text = path;
+            this.CsvLogFilePathTextBox.Text = Path.Combine(path, "csvLog.csv");
+            this.CsvExcFilePathTextBox.Text = Path.Combine(path, "csvExc.csv");
             //No(just)
             //Settings.SetCsvTaskFilePath(path);
 
-            FillActualSettings();
+            UseActualSettings();
+            SaveActualSettings();
         }
         // ..FolderPathChange.._Click(..)
         //For CsvLogFilePath

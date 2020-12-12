@@ -31,6 +31,9 @@ namespace Connector_SFTP_GUI_Prototip
                 ILogInController logInController = new LogInController();
                 logInController.SetNewPassword(PasswordTextBox.Text);
 
+                Properties.Settings.Default.HashProgrammPassword = Settings.GetHashProgrammPassword();
+                Properties.Settings.Default.Save();
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

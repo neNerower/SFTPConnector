@@ -16,13 +16,20 @@ namespace Connector_SFTP_GUI_Prototip
         public LogInForm()
         {
             InitializeComponent();
+            GetActualPasswordHash();
             IfPassNotSetted();
 
         }
 
+        private void GetActualPasswordHash()
+        {
+            Settings.SetHashProgrammPassword(Properties.Settings.Default.HashProgrammPassword);
+            MessageBox.Show(Properties.Settings.Default.HashProgrammPassword);
+            MessageBox.Show(Settings.GetHashProgrammPassword());
+        }
         private void IfPassNotSetted()
         {
-            if (Settings.GetHashProgrammPassword() == "")
+            if (Settings.GetHashProgrammPassword() == "None")
                 NewPasswordButton.Visible = true;
 
         }
