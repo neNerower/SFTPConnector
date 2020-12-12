@@ -19,40 +19,40 @@ namespace Connector_SFTP_GUI_Prototip
             FillActualSettings();
         }
 
-        private void FillActualSettings()
+        private void FillActualSettings()//Fill textBoxes data from file .settings
         {
-            this.LocalFolderPathTextBox.Text = Settings.LocalFolderPath;
-            this.CsvTaskFilePathTextBox.Text = Settings.CsvTaskFilePath;
-            this.CsvLogFilePathTextBox.Text = Settings.CsvLogFilePath;
-            this.CsvExcFilePathTextBox.Text = Settings.CsvExcListPath;
+            this.LocalFolderPathTextBox.Text = Properties.Settings.Default.LocalFolderPath;
+            this.CsvTaskFilePathTextBox.Text = Properties.Settings.Default.CsvTaskFilePath;
+            this.CsvLogFilePathTextBox.Text = Properties.Settings.Default.CsvLogFilePath;
+            this.CsvExcFilePathTextBox.Text = Properties.Settings.Default.CsvExcListPath;
         }
-        private void SaveActualSettings()
+        private void UseActualSettings()//Get settings data from FormControls to SettingsClass
         {
             Settings.SetLocalFolderPath(this.LocalFolderPathTextBox.Text);
             Settings.SetCsvTaskFilePath(this.CsvTaskFilePathTextBox.Text);
             Settings.SetCsvLogFilePath(this.CsvLogFilePathTextBox.Text);
             Settings.SetCsvExcListPath(this.CsvExcFilePathTextBox.Text);
         }
-        private void SetDefaultSettings()
+        private void SaveActualSettings()//Save settings data from FormControls to file .settings
         {
-            Settings.SetLocalFolderPath("");
-            Settings.SetCsvTaskFilePath("");
-            Settings.SetCsvLogFilePath("");
-            Settings.SetCsvExcListPath("");
-            FillActualSettings();
+            Properties.Settings.Default.LocalFolderPath = this.LocalFolderPathTextBox.Text;
+            Properties.Settings.Default.CsvTaskFilePath = this.CsvTaskFilePathTextBox.Text;
+            Properties.Settings.Default.CsvLogFilePath = this.CsvLogFilePathTextBox.Text;
+            Properties.Settings.Default.CsvExcListPath = this.CsvExcFilePathTextBox.Text;
         }
+
+
+        //Get data to SettingsClass
+        //Save to config file
         private void SaveSettingsButton_Click(object sender, EventArgs e)
         {
+            UseActualSettings();
             SaveActualSettings();
-            //SaveSettingsFile();
-            //Save to config file
             this.Close();
         }
 
-        //
         //OpenFileDialod\SaveFileDialog | FolderBrowserDialog
-        //Использовать контрол для вызова системного окна поиска ShowDialog
-        //
+        //Использовать контрол для вызова системного окна поиска -> ShowDialog
         private string GetFolderPath()
         {
             if (folderBrowserDialog.ShowDialog() == DialogResult.Cancel)

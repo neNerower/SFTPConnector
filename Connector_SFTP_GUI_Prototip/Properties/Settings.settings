@@ -1,7 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Connector_SFTP_GUI_Prototip.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="HashProgrammPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LocalFolderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\User\source\test</Value>
+    </Setting>
+    <Setting Name="CsvTaskFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">csvList.csv</Value>
+    </Setting>
+    <Setting Name="CsvLogFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">csvLog.csv</Value>
+    </Setting>
+    <Setting Name="CsvExcListPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">csvExc.csv</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

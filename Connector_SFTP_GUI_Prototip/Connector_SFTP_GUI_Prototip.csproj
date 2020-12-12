@@ -66,6 +66,7 @@
     <Compile Include="LogIn\NewPassForm.Designer.cs">
       <DependentUpon>NewPassForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,7 +96,7 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\SFTPConnectorModule.FileData.datasource" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
