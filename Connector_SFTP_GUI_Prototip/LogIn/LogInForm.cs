@@ -24,8 +24,6 @@ namespace Connector_SFTP_GUI_Prototip
         private void GetActualPasswordHash()
         {
             Settings.SetHashProgrammPassword(Properties.Settings.Default.HashProgrammPassword);
-            MessageBox.Show(Properties.Settings.Default.HashProgrammPassword);
-            MessageBox.Show(Settings.GetHashProgrammPassword());
         }
         private void IfPassNotSetted()
         {
@@ -64,39 +62,5 @@ namespace Connector_SFTP_GUI_Prototip
                 NewPasswordButton.Visible = false;
         }
 
-
-        /*
-        private void AddComponents()
-        {
-            var PasswordLabel = new Label()
-            {
-                Location = new Point(150, 80),
-                Size = new Size(200, 20),
-                Text = "Enter your password"
-            };
-
-            var PasswordTextBox = new TextBox()
-            {
-                Location = new Point(150, 100),
-                Size = new Size(200, 75),
-                UseSystemPasswordChar = true,
-                BackColor = Color.Aqua
-            };
-
-            var PasswordButton = new Button()
-            {
-                Location = new Point(200, 150),
-                Size = new Size(100, 50),
-                BackColor = Color.Aqua,
-                FlatStyle = FlatStyle.System,
-                Text = "Log In",
-                ForeColor = Color.Brown
-            };
-
-            this.Controls.Add(PasswordTextBox);
-            this.Controls.Add(PasswordButton);
-            this.Controls.Add(PasswordLabel);
-        }
-        */
     }
 }

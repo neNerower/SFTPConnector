@@ -16,7 +16,6 @@ namespace Connector_SFTP_GUI_Prototip
         public NewPassForm()
         {
             InitializeComponent();
-
         }
 
         private void SavePasswordButton_Click(object sender, EventArgs e)

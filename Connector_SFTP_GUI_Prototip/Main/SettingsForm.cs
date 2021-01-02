@@ -20,7 +20,7 @@ namespace Connector_SFTP_GUI_Prototip
             FillActualSettings();
         }
 
-        private void FillActualSettings()//Fill textBoxes data from file .settings
+        private void FillActualSettings()//Fill FormControls with data from file .settings
         {
             this.LocalFolderPathTextBox.Text = Properties.Settings.Default.LocalFolderPath;
             this.CsvTaskFilePathTextBox.Text = Properties.Settings.Default.CsvTaskFilePath;
@@ -46,18 +46,34 @@ namespace Connector_SFTP_GUI_Prototip
 
         //Get data to SettingsClass
         //Save to config file
-        private void SaveSettingsButton_Click(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //SaveChanges();
+        }
+        private void SaveChanges()
         {
             UseActualSettings();
             SaveActualSettings();
             this.Close();
+        }
+        private void SaveSettingsButton_Click(object sender, EventArgs e)
+        {
+            SaveChanges();
+        }
+
+        //Drop actual password
+        private void dropPasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.SetHashProgrammPassword("None");
+            Properties.Settings.Default.HashProgrammPassword = "None";
+            Properties.Settings.Default.Save();
         }
 
         //OpenFileDialod\SaveFileDialog | FolderBrowserDialog
         //Использовать контрол для вызова системного окна поиска -> ShowDialog
         private string GetFolderPath()
         {
-            if (folderBrowserDialog.ShowDialog() == DialogResult.Cancel)
+            if (folderBrowserDialog.ShowDialog() != DialogResult.OK)
                 return null;
 
             return folderBrowserDialog.SelectedPath;
@@ -78,11 +94,11 @@ namespace Connector_SFTP_GUI_Prototip
             //No(just)
             //Settings.SetCsvTaskFilePath(path);
 
-            UseActualSettings();
-            SaveActualSettings();
         }
-        // ..FolderPathChange.._Click(..)
-        //For CsvLogFilePath
-        //For CsvExcListPath
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new NewPassForm().ShowDialog();
+        }
     }
 }

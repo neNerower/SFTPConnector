@@ -7,37 +7,44 @@ namespace SFTPConnectorModule
     public interface IModuleManager
     {
         void Downloading();
+        void UploadTaskList();
+        List<FileData> GetTaskList();
 
     }
     public class ModuleManager : IModuleManager
     {
         private SFTPController SftpController { get; set; }
         private CsvController CsvController { get; set; }
-        public List<FileData> TaskList { get; set; }
+        private List<FileData> TaskList { get; set; }
+        private Boolean TaskListUploadFlag { get; set; } = false;
 
         public ModuleManager()
         {
             InitControllers();
-            InitLists();
-            
         }
 
         private void InitControllers()
         {
             SftpController = new SFTPController();
             CsvController = new CsvController();
-
         }
-        private void InitLists()
+
+        public void UploadTaskList()
         {
             //загрузка данных из csv-файла в TaskList
             TaskList = CsvController.CsvReadTask();
-
-            //TaskList = new List<FileData>();
-            //TaskList.Add(new FileData("host", "username", "password", "pathRemoteFile"));
-            //TaskList.Add(new FileData("host1", "username1", "password1", "pathRemoteFile1"));
+            TaskListUploadFlag = true;
         }
-        
+        public List<FileData> GetTaskList()
+        {
+            if (TaskListUploadFlag)
+            {
+                return TaskList;
+            }
+
+            return new List<FileData>();
+        }
+
         public void Downloading()
         {
             foreach (FileData fileData in TaskList)
