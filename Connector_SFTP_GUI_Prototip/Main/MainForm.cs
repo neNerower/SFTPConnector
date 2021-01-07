@@ -34,8 +34,8 @@ namespace Connector_SFTP_GUI_Prototip
 
         private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //DOWNLOADING DATA
-            Downloading();
+            //DOWNLOADING FILES
+            DownloadingAsync();
         }
 
         ///
@@ -61,7 +61,7 @@ namespace Connector_SFTP_GUI_Prototip
             this.TaskDataTable.DataSource = ModuleManager.GetTaskList();
         }
 
-        private void Downloading()
+        async private void DownloadingAsync()
         {
             if (TaskDataTable.Rows.Count == 0)
             {
@@ -74,8 +74,15 @@ namespace Connector_SFTP_GUI_Prototip
             ChooseLocalFolder();
 
             //СКАЧИВАНИЕ ФАЙЛОВ
-            ModuleManager.Downloading();
-            TaskDataTable.Refresh();//ОБНОВЛЕНИЕ ОТОБРАЖЕНИЯ ТАБЛИЦЫ
+            await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
+        }
+        private void RefreshTable()//ОБНОВЛЕНИЕ ДАННЫХ В ТАБЛИЦЕ
+        {
+            TaskDataTable.Invoke((MethodInvoker)delegate
+            {
+                // Running on the UI thread
+                TaskDataTable.Refresh();
+            });
         }
 
         private void ChooseLocalFolder()

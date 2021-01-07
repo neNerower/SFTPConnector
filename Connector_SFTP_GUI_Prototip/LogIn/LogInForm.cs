@@ -18,7 +18,6 @@ namespace Connector_SFTP_GUI_Prototip
             InitializeComponent();
             GetActualPasswordHash();
             IfPassNotSetted();
-
         }
 
         private void GetActualPasswordHash()
@@ -29,7 +28,6 @@ namespace Connector_SFTP_GUI_Prototip
         {
             if (Settings.GetHashProgrammPassword() == "None")
                 NewPasswordButton.Visible = true;
-
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
@@ -61,6 +59,5 @@ namespace Connector_SFTP_GUI_Prototip
             if (new NewPassForm().ShowDialog() == DialogResult.OK)
                 NewPasswordButton.Visible = false;
         }
-
     }
 }
