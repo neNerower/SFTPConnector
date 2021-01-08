@@ -45,9 +45,7 @@ namespace Connector_SFTP_GUI_Prototip
         private void UploadTaskFile()
         {
             if (openFileDialog.ShowDialog() != DialogResult.OK)
-            {
                 return;
-            }
 
             //УСТАНОВИТЬ ЗАНЧЕНИЕ ПУТИ ДО ФАЙЛА
             using (FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
@@ -71,10 +69,21 @@ namespace Connector_SFTP_GUI_Prototip
             }
 
             //ВЫБОР ЛОКАЛЬНОЙ ДИРЕКТОРИИ ДЛЯ ЗАГРУЗКИ ФАЙЛОВ В НЕЕ
-            ChooseLocalFolder();
+            if (!ChooseLocalFolder())
+                return;
+
+            //
+            openToolStripMenuItem.Enabled = false;
+            downloadToolStripMenuItem.Enabled = false;
 
             //СКАЧИВАНИЕ ФАЙЛОВ
             await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
+            MessageBox.Show("Downloading successfuly finished");
+
+            //
+            openToolStripMenuItem.Enabled = true;
+            downloadToolStripMenuItem.Enabled = true;
+
         }
         private void RefreshTable()//ОБНОВЛЕНИЕ ДАННЫХ В ТАБЛИЦЕ
         {
@@ -85,48 +94,19 @@ namespace Connector_SFTP_GUI_Prototip
             });
         }
 
-        private void ChooseLocalFolder()
+        private Boolean ChooseLocalFolder()
         {
             if (folderBrowserDialog.ShowDialog() != DialogResult.OK)
-                return;
+                return false;
 
             string path = folderBrowserDialog.SelectedPath;
             if (path == null)
-                return;
+                return false;
 
             Settings.SetLocalFolderPath(path);
             Settings.SetCsvLogFilePath(Path.Combine(path, "csvLog.csv"));
             Settings.SetCsvExcListPath(Path.Combine(path, "csvExc.csv"));
+            return true;
         }
-
-        //private void Downloading()
-        //{
-        //    var csvLog = new List<string>();
-        //    //var excList = new List<Settings>();
-
-        //    foreach (FileData fileData in TaskList)
-        //    {
-        //        try
-        //        {
-        //            SftpController.downloadFile(fileData);
-        //            fileData.Status = "Succes";
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            fileData.Status = e.Message;
-        //            ExcList.Add(fileData);
-        //        }
-        //        finally
-        //        {
-        //            csvLog.Add(CsvController.CsvCompleteLogLine(fileData));
-
-        //            CsvController.CsvWrite(CsvController.CsvCompleteLogLine(fileData), Settings.CsvLogListPath);
-        //        }
-        //    }
-
-        //    //CsvController.CsvWriteLog(CsvLog);
-
-        //}
-
     }
 }

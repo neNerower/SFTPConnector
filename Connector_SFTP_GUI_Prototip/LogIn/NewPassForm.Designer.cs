@@ -105,7 +105,7 @@
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(295, 25);
             this.PasswordLabel.TabIndex = 1;
-            this.PasswordLabel.Text = "Enter password";
+            this.PasswordLabel.Text = "Enter new password";
             // 
             // PasswordTextBox
             // 

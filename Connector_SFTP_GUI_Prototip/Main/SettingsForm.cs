@@ -67,6 +67,8 @@ namespace Connector_SFTP_GUI_Prototip
             Settings.SetHashProgrammPassword("None");
             Properties.Settings.Default.HashProgrammPassword = "None";
             Properties.Settings.Default.Save();
+
+            MessageBox.Show("Password dropped successfuly");
         }
 
         //OpenFileDialod\SaveFileDialog | FolderBrowserDialog
