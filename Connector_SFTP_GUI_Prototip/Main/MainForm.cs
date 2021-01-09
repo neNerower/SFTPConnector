@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SFTPConnectorModule;
@@ -77,9 +78,13 @@ namespace Connector_SFTP_GUI_Prototip
             downloadToolStripMenuItem.Enabled = false;
 
             //СКАЧИВАНИЕ ФАЙЛОВ
-            await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
-            MessageBox.Show("Downloading successfuly finished");
+            //await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
 
+            Thread downloadingThread = new Thread(new ThreadStart(() => ModuleManager.Downloading((_) => RefreshTable())));
+            downloadingThread.Start();
+            await Task.Run(() => downloadingThread.Join());
+
+            MessageBox.Show("Downloading successfuly finished");
             //
             openToolStripMenuItem.Enabled = true;
             downloadToolStripMenuItem.Enabled = true;
@@ -103,9 +108,16 @@ namespace Connector_SFTP_GUI_Prototip
             if (path == null)
                 return false;
 
+            //ЗАПИСЬ НОВОГО АДРЕСА ЛОКАЛЬНОЙ ДИРЕКТОРИИ В SETTINGS
             Settings.SetLocalFolderPath(path);
             Settings.SetCsvLogFilePath(Path.Combine(path, "csvLog.csv"));
             Settings.SetCsvExcListPath(Path.Combine(path, "csvExc.csv"));
+
+            //ИЗМЕНЕНИЕ АДРЕСА ЛОКАЛЬНОЙ ДИРЕКТОРИИ В ДАННЫХ ТАБЛИЦЫ
+            ModuleManager.ChangeLocalFolderPath();
+            this.TaskDataTable.DataSource = ModuleManager.GetTaskList();
+            this.TaskDataTable.Refresh();
+
             return true;
         }
     }
