@@ -17,7 +17,7 @@ namespace Connector_SFTP_GUI_Prototip
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (new LogInForm().ShowDialog() == DialogResult.OK)
+            //if (new LogInForm().ShowDialog() == DialogResult.OK)
                 Application.Run(new MainForm());
         }
     }

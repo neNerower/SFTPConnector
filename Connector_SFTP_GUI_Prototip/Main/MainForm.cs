@@ -16,15 +16,11 @@ namespace Connector_SFTP_GUI_Prototip
     public partial class MainForm : Form
     {
         private IModuleManager ModuleManager { get; } = new ModuleManager();
+
         public MainForm()
         {
             //ВСЕ КЛАССЫ SFTPConnectorModule ПРОСТАВИТЬ PUBLIC
             InitializeComponent();
-        }
-
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new SettingsForm().ShowDialog();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,6 +33,33 @@ namespace Connector_SFTP_GUI_Prototip
         {
             //DOWNLOADING FILES
             DownloadingAsync();
+        }
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pauseToolStripMenuItem.Enabled = false;
+
+            //ModuleManager.LockDownloading();
+            continueToolStripMenuItem.Enabled = true;
+        }
+        private void continueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            continueToolStripMenuItem.Enabled = false;
+
+            //ModuleManager.UnlockDownloading();
+            pauseToolStripMenuItem.Enabled = true;
+        }
+
+        private void dropToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.HashProgrammPassword = "None";
+            Properties.Settings.Default.Save();
+
+            MessageBox.Show("Password dropped successfuly");
+        }
+
+        private void changeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new NewPassForm().ShowDialog();
         }
 
         ///
@@ -66,7 +89,7 @@ namespace Connector_SFTP_GUI_Prototip
             {
                 MessageBox.Show("Not enough data!");
                 UploadTaskFile();
-                return;
+                return;//ВЫХОД ЕСЛИ ТАБЛИЦА НЕ СОДЕРЖИТ НИ ОДНОЙ СТРОКИ
             }
 
             //ВЫБОР ЛОКАЛЬНОЙ ДИРЕКТОРИИ ДЛЯ ЗАГРУЗКИ ФАЙЛОВ В НЕЕ
@@ -76,20 +99,25 @@ namespace Connector_SFTP_GUI_Prototip
             //
             openToolStripMenuItem.Enabled = false;
             downloadToolStripMenuItem.Enabled = false;
-
+            pauseToolStripMenuItem.Enabled = true;
+            
+            //
             //СКАЧИВАНИЕ ФАЙЛОВ
-            //await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
+            await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
 
-            Thread downloadingThread = new Thread(new ThreadStart(() => ModuleManager.Downloading((_) => RefreshTable())));
-            downloadingThread.Start();
-            await Task.Run(() => downloadingThread.Join());
+            //Thread DownloadingThread = new Thread(new ThreadStart(() => ModuleManager.Downloading((_) => RefreshTable())));
+            //DownloadingThread.Start();
+            //await Task.Run(() => DownloadingThread.Join());
 
             MessageBox.Show("Downloading successfuly finished");
+
             //
             openToolStripMenuItem.Enabled = true;
             downloadToolStripMenuItem.Enabled = true;
-
+            pauseToolStripMenuItem.Enabled = false;
+            continueToolStripMenuItem.Enabled = false;
         }
+
         private void RefreshTable()//ОБНОВЛЕНИЕ ДАННЫХ В ТАБЛИЦЕ
         {
             TaskDataTable.Invoke((MethodInvoker)delegate
@@ -120,5 +148,6 @@ namespace Connector_SFTP_GUI_Prototip
 
             return true;
         }
+
     }
 }

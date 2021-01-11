@@ -25,23 +25,23 @@ namespace Connector_SFTP_GUI_Prototip
 
         private void SavePassword()
         {
-            if (this.PasswordTextBox.Text == this.ConfirmPasswordTextBox.Text)
-            {
-                ILogInController logInController = new LogInController();
-                logInController.SetNewPassword(PasswordTextBox.Text);
-
-                Properties.Settings.Default.HashProgrammPassword = Settings.GetHashProgrammPassword();
-                Properties.Settings.Default.Save();
-
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            else
+            if (this.PasswordTextBox.Text != this.ConfirmPasswordTextBox.Text)
             {
                 PasswordLabel.Text = "Try again";
                 PasswordTextBox.Text = "";
                 ConfirmPasswordTextBox.Text = "";
+                return;//ЕСЛИ ПАРОЛИ НЕ СОВПАДАЮТ
             }
+
+            ILogInController logInController = new LogInController();
+            logInController.SetNewPassword(PasswordTextBox.Text);
+            //ЗДЕСЬ БУДЕТ ПРОИСХОДИТЬ ПЕРЕШИФРОВЫВАЕИЕ ХРАНИМЫХ ПАРОЛЕЙ
+
+            Properties.Settings.Default.HashProgrammPassword = Settings.GetHashProgrammPassword();
+            Properties.Settings.Default.Save();
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
     }
