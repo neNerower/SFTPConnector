@@ -17,29 +17,21 @@ namespace SFTPConnectorModule
             InitMembers(host, username, password, pathRemoteFile);
         }
 
-        public FileData(string[] arguments)
-        {
-            
-        }
-
         private void InitMembers(string host, string username, string password, string pathRemoteFile)
         {
             Host = host;
             Username = username;
             Password = password;
-            SetPaths(pathRemoteFile);
+            SetPath(pathRemoteFile);
             Status = "Waiting";
         }
 
-        private void SetPaths(string pathRemoteFile)
+        public void SetPath(string pathRemoteFile)
         {
             var dm = new DirectoryManager();
 
             PathRemoteFile = pathRemoteFile;
             PathLocalFile = dm.RmPathCombiner(Settings.LocalFolderPath + "\\" + Host, PathRemoteFile);
-
-            dm.MkDir(PathLocalFile);
         }
-
     }
 }

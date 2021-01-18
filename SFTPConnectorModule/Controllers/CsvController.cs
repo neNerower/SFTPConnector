@@ -7,7 +7,7 @@ namespace SFTPConnectorModule
     public interface ICsvController
     {
         List<FileData> CsvReadTask();
-        void CsvWriteLog(List<string> csvList, string path);
+        //void CsvWriteLog(List<string> csvList, string path);
         void CsvWrite(string csvLine, string path);
         string CsvCompleteLogLine(FileData fileData);
 
@@ -63,21 +63,21 @@ namespace SFTPConnectorModule
             throw new Exception("Not enough arguments to complete fileData");
         }
 
-        public void CsvWriteLog(List<string> csvList, string path)
-        {
-            try
-            {
-                using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
-                {
-                    foreach (string line in csvList)
-                    {
-                        sw.WriteLine(line);
-                    }
-                }
-                Console.WriteLine($"{Path.GetFileName(path)} writing completed");
-            }
-            finally { }
-        }
+        //public void CsvWriteLog(List<string> csvList, string path)
+        //{
+        //    try
+        //    {
+        //        using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
+        //        {
+        //            foreach (string line in csvList)
+        //            {
+        //                sw.WriteLine(line);
+        //            }
+        //        }
+        //        Console.WriteLine($"{Path.GetFileName(path)} writing completed");
+        //    }
+        //    finally { }
+        //}
 
         public void CsvWrite(string csvLine, string path)
         {
@@ -91,21 +91,6 @@ namespace SFTPConnectorModule
             }
             finally { }
         }
-        //public void CsvWriteExc(List<string> CsvList)
-        //{
-        //    try
-        //    {
-        //        using (StreamWriter sw = new StreamWriter(CsvExcListPath, true, System.Text.Encoding.Default))
-        //        {
-        //            foreach (string line in CsvList)
-        //            {
-        //                sw.WriteLine(line);
-        //            }
-        //        }
-        //        Console.WriteLine("LogFile writing completed");
-        //    }
-        //    finally { }
-        //}
 
         public string CsvCompleteLogLine(FileData fileData)
         {

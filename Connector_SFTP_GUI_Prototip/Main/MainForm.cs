@@ -16,6 +16,8 @@ namespace Connector_SFTP_GUI_Prototip
     public partial class MainForm : Form
     {
         private IModuleManager ModuleManager { get; } = new ModuleManager();
+        private Thread downloadingThread;
+
         public MainForm()
         {
             //ВСЕ КЛАССЫ SFTPConnectorModule ПРОСТАВИТЬ PUBLIC
@@ -26,17 +28,19 @@ namespace Connector_SFTP_GUI_Prototip
         {
             new SettingsForm().ShowDialog();
         }
-
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //UPLOADING DATA
             UploadTaskFile();
         }
-
-        private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //DOWNLOADING FILES
             DownloadingAsync();
+        }
+        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StopDownloading();
         }
 
         ///
@@ -60,6 +64,28 @@ namespace Connector_SFTP_GUI_Prototip
             this.TaskDataTable.DataSource = ModuleManager.GetTaskList();
         }
 
+        private bool ChooseLocalFolder()
+        {
+            if (folderBrowserDialog.ShowDialog() != DialogResult.OK)
+                return false;
+
+            string path = folderBrowserDialog.SelectedPath;
+            if (path == null)
+                return false;
+
+            //ЗАПИСЬ НОВОГО АДРЕСА ЛОКАЛЬНОЙ ДИРЕКТОРИИ В SETTINGS
+            Settings.SetLocalFolderPath(path);
+            Settings.SetCsvLogFilePath(Path.Combine(path, "csvLog.csv"));
+            Settings.SetCsvExcListPath(Path.Combine(path, "csvExc.csv"));
+
+            //ИЗМЕНЕНИЕ АДРЕСА ЛОКАЛЬНОЙ ДИРЕКТОРИИ В ДАННЫХ ТАБЛИЦЫ
+            ModuleManager.UpdateLocalFolderPath();
+            this.TaskDataTable.DataSource = ModuleManager.GetTaskList();
+            this.TaskDataTable.Refresh();
+
+            return true;
+        }
+
         async private void DownloadingAsync()
         {
             if (TaskDataTable.Rows.Count == 0)
@@ -75,20 +101,21 @@ namespace Connector_SFTP_GUI_Prototip
 
             //
             openToolStripMenuItem.Enabled = false;
-            downloadToolStripMenuItem.Enabled = false;
+            runToolStripMenuItem.Enabled = false;
+            stopToolStripMenuItem.Enabled = true;
 
             //СКАЧИВАНИЕ ФАЙЛОВ
             //await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
 
-            Thread downloadingThread = new Thread(new ThreadStart(() => ModuleManager.Downloading((_) => RefreshTable())));
+            downloadingThread = new Thread(new ThreadStart(() => ModuleManager.Downloading((_) => RefreshTable())));
             downloadingThread.Start();
             await Task.Run(() => downloadingThread.Join());
 
-            MessageBox.Show("Downloading successfuly finished");
+            MessageBox.Show("Downloading finished");
             //
             openToolStripMenuItem.Enabled = true;
-            downloadToolStripMenuItem.Enabled = true;
-
+            runToolStripMenuItem.Enabled = true;
+            stopToolStripMenuItem.Enabled = false;
         }
         private void RefreshTable()//ОБНОВЛЕНИЕ ДАННЫХ В ТАБЛИЦЕ
         {
@@ -99,26 +126,9 @@ namespace Connector_SFTP_GUI_Prototip
             });
         }
 
-        private Boolean ChooseLocalFolder()
+        private void StopDownloading()
         {
-            if (folderBrowserDialog.ShowDialog() != DialogResult.OK)
-                return false;
-
-            string path = folderBrowserDialog.SelectedPath;
-            if (path == null)
-                return false;
-
-            //ЗАПИСЬ НОВОГО АДРЕСА ЛОКАЛЬНОЙ ДИРЕКТОРИИ В SETTINGS
-            Settings.SetLocalFolderPath(path);
-            Settings.SetCsvLogFilePath(Path.Combine(path, "csvLog.csv"));
-            Settings.SetCsvExcListPath(Path.Combine(path, "csvExc.csv"));
-
-            //ИЗМЕНЕНИЕ АДРЕСА ЛОКАЛЬНОЙ ДИРЕКТОРИИ В ДАННЫХ ТАБЛИЦЫ
-            ModuleManager.ChangeLocalFolderPath();
-            this.TaskDataTable.DataSource = ModuleManager.GetTaskList();
-            this.TaskDataTable.Refresh();
-
-            return true;
+            downloadingThread.Abort();
         }
     }
 }
