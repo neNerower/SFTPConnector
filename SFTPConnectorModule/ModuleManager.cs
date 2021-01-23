@@ -21,11 +21,11 @@ namespace SFTPConnectorModule
     public class ModuleManager : IModuleManager
     {
         private SFTPController SftpController { get; set; }
-        private CsvController CsvController { get; set; }
         private DirectoryManager DirectoryManager { get; set; }
+        private CsvTaskReader TaskReader { get; set; }
+        private CsvLogger Logger { get; set; }
         private List<FileData> TaskList { get; set; }
-        private bool Is_TaskListUpload { get; set; } = false;
-        private bool Is_AbleToDownload { get; set; }
+        private bool Is_TaskListUploaded { get; set; } = false;
 
         public ModuleManager()
         {
@@ -35,19 +35,20 @@ namespace SFTPConnectorModule
         private void InitControllers()
         {
             SftpController = new SFTPController();
-            CsvController = new CsvController();
             DirectoryManager = new DirectoryManager();
+            TaskReader = new CsvTaskReader();
+            Logger = new CsvLogger();
         }
 
         public void UploadTaskList()
         {
             //загрузка данных из csv-файла в TaskList
-            TaskList = CsvController.CsvReadTask();
-            Is_TaskListUpload = true;
+            TaskList = TaskReader.Read();
+            Is_TaskListUploaded = true;
         }
         public List<FileData> GetTaskList()
         {
-            if (Is_TaskListUpload)
+            if (Is_TaskListUploaded)
                 return TaskList;//EMPTY LIST IF IT WASNT UPLOADED ALREADY
 
             return new List<FileData>();//RETURNS ACTUAL TASK LIST
@@ -84,7 +85,7 @@ namespace SFTPConnectorModule
             finally
             {
                 //WRITE LINE TO LOG FILE (CHECK THE STATUS)
-                CsvController.CsvWrite(CsvController.CsvCompleteLogLine(fileData), Settings.CsvLogFilePath);
+                Logger.LogLine(fileData);
                 handler();//HANDLER FOR REFRESHING UI-TABLE AFTER EACH ETERATION
             }
         }

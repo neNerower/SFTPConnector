@@ -36,6 +36,5 @@ namespace SFTPConnectorModule
         {
             Settings.SetHashProgrammPassword(Hash(newPassword));
         }
-
     }
 }

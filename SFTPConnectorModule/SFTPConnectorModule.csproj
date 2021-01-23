@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CsvController.cs" />
+    <Compile Include="Controllers\CsvLogger.cs" />
+    <Compile Include="Controllers\CsvTaskReader.cs" />
     <Compile Include="DirectoryManager.cs" />
     <Compile Include="Classes\FileData.cs" />
     <Compile Include="Controllers\LogInController.cs" />

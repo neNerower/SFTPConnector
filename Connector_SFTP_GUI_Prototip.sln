@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connector_SFTP_GUI_Prototip", "Connector_SFTP_GUI_Prototip\Connector_SFTP_GUI_Prototip.csproj", "{CE37C6CB-CD9A-40A9-81EF-D710AAF65CE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFTPConnectorModule", "SFTPConnectorModule\SFTPConnectorModule.csproj", "{644CF408-3F24-4094-BAC1-3CC71604DD59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE37C6CB-CD9A-40A9-81EF-D710AAF65CE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE37C6CB-CD9A-40A9-81EF-D710AAF65CE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE37C6CB-CD9A-40A9-81EF-D710AAF65CE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE37C6CB-CD9A-40A9-81EF-D710AAF65CE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{644CF408-3F24-4094-BAC1-3CC71604DD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{644CF408-3F24-4094-BAC1-3CC71604DD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{644CF408-3F24-4094-BAC1-3CC71604DD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{644CF408-3F24-4094-BAC1-3CC71604DD59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16D201A2-7FD2-47C1-BCD4-E65E7068301B}
+	EndGlobalSection
+EndGlobal
