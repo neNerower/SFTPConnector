@@ -15,12 +15,12 @@ namespace Connector_SFTP_GUI_Prototip
 {
     public partial class MainForm : Form
     {
-        private IModuleManager ModuleManager { get; } = new ModuleManager();
-        private Thread downloadingThread;
+        private ModuleManager ModuleManager { get; } = new ModuleManager();
+        private TaskList TaskList { get; } = new TaskList();
+        private Thread downloadingThread { get; set; }
 
         public MainForm()
         {
-            //ВСЕ КЛАССЫ SFTPConnectorModule ПРОСТАВИТЬ PUBLIC
             InitializeComponent();
         }
 
@@ -60,8 +60,8 @@ namespace Connector_SFTP_GUI_Prototip
             }
 
             //ЗАГРУЗКА ДАННЫХ ИЗ НАЙДЕННОГО ФАЙЛА
-            ModuleManager.UploadTaskList();
-            this.TaskDataTable.DataSource = ModuleManager.GetTaskList();
+            TaskList.UploadTaskList();
+            this.TaskDataTable.DataSource = TaskList.GetTasks();
         }
 
         private bool ChooseLocalFolder()
@@ -79,8 +79,8 @@ namespace Connector_SFTP_GUI_Prototip
             Settings.SetCsvExcListPath(Path.Combine(path, "csvExc.csv"));
 
             //ИЗМЕНЕНИЕ АДРЕСА ЛОКАЛЬНОЙ ДИРЕКТОРИИ В ДАННЫХ ТАБЛИЦЫ
-            ModuleManager.UpdateLocalFolderPath();
-            this.TaskDataTable.DataSource = ModuleManager.GetTaskList();
+            TaskList.UpdateLocalPath();
+            this.TaskDataTable.DataSource = TaskList.GetTasks();
             this.TaskDataTable.Refresh();
 
             return true;
@@ -107,7 +107,7 @@ namespace Connector_SFTP_GUI_Prototip
             //СКАЧИВАНИЕ ФАЙЛОВ
             //await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
 
-            downloadingThread = new Thread(new ThreadStart(() => ModuleManager.Downloading((_) => RefreshTable())));
+            downloadingThread = new Thread(new ThreadStart(() => ModuleManager.Downloading(TaskList.GetTasks(), (_) => RefreshTable())));
             downloadingThread.Start();
             await Task.Run(() => downloadingThread.Join());
 

@@ -8,57 +8,27 @@ namespace SFTPConnectorModule
 {
     public delegate void CompletionHandler(params Object[] args);
 
-    public interface IModuleManager
-    {
-        void Downloading(CompletionHandler handler);
-
-        void UploadTaskList();
-        void UpdateLocalFolderPath();
-        List<FileData> GetTaskList();
-
-    }
-
-    public class ModuleManager : IModuleManager
+    public class ModuleManager
     {
         private SFTPController SftpController { get; set; }
         private DirectoryManager DirectoryManager { get; set; }
-        private CsvTaskReader TaskReader { get; set; }
         private CsvLogger Logger { get; set; }
-        private List<FileData> TaskList { get; set; }
-        private bool Is_TaskListUploaded { get; set; } = false;
 
         public ModuleManager()
         {
-            InitControllers();
-        }
-
-        private void InitControllers()
-        {
             SftpController = new SFTPController();
             DirectoryManager = new DirectoryManager();
-            TaskReader = new CsvTaskReader();
             Logger = new CsvLogger();
         }
 
-        public void UploadTaskList()
-        {
-            //загрузка данных из csv-файла в TaskList
-            TaskList = TaskReader.Read();
-            Is_TaskListUploaded = true;
-        }
-        public List<FileData> GetTaskList()
-        {
-            if (Is_TaskListUploaded)
-                return TaskList;//EMPTY LIST IF IT WASNT UPLOADED ALREADY
 
-            return new List<FileData>();//RETURNS ACTUAL TASK LIST
-        }
-
-        public void UpdateLocalFolderPath()
+        public void Downloading(List<FileData> taskList, CompletionHandler handler)
         {
-            foreach (FileData fileData in TaskList)//ДЛЯ КАЖДОЙ ЗАПИСИ ИЗ СПИСКА ЗАДАЧ
+            foreach (FileData fileData in taskList)//ДЛЯ КАЖДОЙ ЗАПИСИ ИЗ СПИСКА ЗАДАЧ
             {
-                fileData.SetPath(fileData.PathRemoteFile);
+                DownloadFile(fileData, handler);
+                //downloadingThreads.Add(new Thread(() => DownloadFile(fileData, handler)));
+                //downloadingThreads[downloadingThreads.Count - 1].Start();
             }
         }
 
@@ -87,16 +57,6 @@ namespace SFTPConnectorModule
                 //WRITE LINE TO LOG FILE (CHECK THE STATUS)
                 Logger.LogLine(fileData);
                 handler();//HANDLER FOR REFRESHING UI-TABLE AFTER EACH ETERATION
-            }
-        }
-
-        public void Downloading(CompletionHandler handler)
-        {
-            foreach (FileData fileData in TaskList)//ДЛЯ КАЖДОЙ ЗАПИСИ ИЗ СПИСКА ЗАДАЧ
-            {
-                DownloadFile(fileData, handler);
-                //downloadingThreads.Add(new Thread(() => DownloadFile(fileData, handler)));
-                //downloadingThreads[downloadingThreads.Count - 1].Start();
             }
         }
     }
