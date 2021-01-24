@@ -22,15 +22,15 @@ namespace SFTPConnectorModule
             Host = host;
             Username = username;
             Password = password;
-            SetPath(pathRemoteFile);
+            PathRemoteFile = pathRemoteFile;
+            SetLocalPath();
             Status = "Waiting";
         }
 
-        public void SetPath(string pathRemoteFile)
+        public void SetLocalPath()
         {
             var dm = new DirectoryManager();
 
-            PathRemoteFile = pathRemoteFile;
             PathLocalFile = dm.RmPathCombiner(Settings.LocalFolderPath + "\\" + Host, PathRemoteFile);
         }
     }

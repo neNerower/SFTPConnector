@@ -15,7 +15,6 @@ namespace Connector_SFTP_GUI_Prototip
 {
     public partial class MainForm : Form
     {
-        private ModuleManager ModuleManager { get; } = new ModuleManager();
         private TaskList TaskList { get; } = new TaskList();
         private Thread downloadingThread { get; set; }
 
@@ -106,8 +105,8 @@ namespace Connector_SFTP_GUI_Prototip
 
             //СКАЧИВАНИЕ ФАЙЛОВ
             //await Task.Run(() => ModuleManager.Downloading((_) => RefreshTable()));
-
-            downloadingThread = new Thread(new ThreadStart(() => ModuleManager.Downloading(TaskList.GetTasks(), (_) => RefreshTable())));
+            var moduleManager = new ModuleManager();
+            downloadingThread = new Thread(new ThreadStart(() => moduleManager.Downloading(TaskList.GetTasks(), (_) => RefreshTable())));
             downloadingThread.Start();
             await Task.Run(() => downloadingThread.Join());
 
