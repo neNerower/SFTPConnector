@@ -19,9 +19,9 @@ namespace SFTPConnectorModule
         {
             //загрузка данных из csv-файла в Tasks
             var taskReader = new CsvTaskReader();
-            Tasks = taskReader.Read();
+            Tasks = taskReader.Read().ToList();
         }
-        public List<FileData> GetTasks()
+        public IEnumerable<FileData> GetTasks()
         {
             return Tasks;//EMPTY LIST IF IT WASNT UPLOADED ALREADY
         }

@@ -9,7 +9,7 @@ namespace SFTPConnectorModule
 {
     internal class CsvTaskReader
     {
-        public List<FileData> Read()
+        public IEnumerable<FileData> Read()
         {
             if (!File.Exists(Settings.CsvTaskFilePath))
                 return new List<FileData>();

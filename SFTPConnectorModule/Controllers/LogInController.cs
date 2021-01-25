@@ -6,17 +6,15 @@ namespace SFTPConnectorModule
 {
     public interface ILogInController
     {
-        bool CheckPassword(string l_password);
+        bool CheckPassword(string password);
         void SetNewPassword(string newPassword);
     }
     public class LogInController : ILogInController
     {
-        public bool CheckPassword(string l_password)
+        public bool CheckPassword(string password)
         {
             //HashProgrammPassword takes from Settings.HashProgrammPassword
-            //HashProgrammPassword = Hash("keks"); //КОСТЫЛЬ
-            //SetNewPassword("keks");//тоже ВРЕМЕННЫЙ КОСТЫЛЬ
-            return Settings.GetHashProgrammPassword() == Hash(l_password);
+            return Settings.GetHashProgrammPassword() == Hash(password);
         }
 
         private string Hash(string str)

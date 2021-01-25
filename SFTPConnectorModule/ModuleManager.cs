@@ -22,17 +22,19 @@ namespace SFTPConnectorModule
         }
 
 
-        public void Downloading(List<FileData> taskList, CompletionHandler handler)
+        public void Downloading(IEnumerable<FileData> taskList, CompletionHandler handler)
         {
             foreach (FileData fileData in taskList)//ДЛЯ КАЖДОЙ ЗАПИСИ ИЗ СПИСКА ЗАДАЧ
             {
-                DownloadFile(fileData, handler);
-                //downloadingThreads.Add(new Thread(() => DownloadFile(fileData, handler)));
-                //downloadingThreads[downloadingThreads.Count - 1].Start();
+                DownloadFile(fileData);
+
+                //WRITE LINE TO LOG FILE (CHECK THE STATUS)
+                Logger.LogLine(fileData);
+                handler();//HANDLER FOR REFRESHING UI-TABLE AFTER EACH ETERATION
             }
         }
 
-        private void DownloadFile(FileData fileData, CompletionHandler handler)
+        private void DownloadFile(FileData fileData)
         {
             if (fileData.Status == "Succes")
                 return;
@@ -51,12 +53,6 @@ namespace SFTPConnectorModule
             catch (Exception e)
             {
                 fileData.Status = e.Message;
-            }
-            finally
-            {
-                //WRITE LINE TO LOG FILE (CHECK THE STATUS)
-                Logger.LogLine(fileData);
-                handler();//HANDLER FOR REFRESHING UI-TABLE AFTER EACH ETERATION
             }
         }
     }
