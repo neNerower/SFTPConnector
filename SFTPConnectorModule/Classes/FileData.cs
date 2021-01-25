@@ -14,11 +14,6 @@ namespace SFTPConnectorModule
 
         public FileData(string host, string username, string password, string pathRemoteFile)
         {
-            InitMembers(host, username, password, pathRemoteFile);
-        }
-
-        private void InitMembers(string host, string username, string password, string pathRemoteFile)
-        {
             Host = host;
             Username = username;
             Password = password;
