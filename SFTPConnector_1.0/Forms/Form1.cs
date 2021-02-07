@@ -15,6 +15,10 @@ namespace SFTPConnector_1._0
         public Form1()
         {
             InitializeComponent();
+
+
         }
+
+
     }
 }
