@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace SFTPConnectorLib.Controllers
+namespace SFTPConnectorLib.Tools
 {
     internal class CsvLogger
     {
