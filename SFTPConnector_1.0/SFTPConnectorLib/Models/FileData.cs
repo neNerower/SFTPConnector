@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFTPConnectorLib.Controllers;
+using System;
 
 namespace SFTPConnectorLib.Models
 {
@@ -9,16 +10,15 @@ namespace SFTPConnectorLib.Models
         public string Username { get; private set; }
         public string Password { get; private set; }
         public string RemoteFilePath { get; private set; }
-        public string LocalFilePath { get; private set; }
+        public string LocalFilePath { get; private set; } //This prop init just in SetLocalPath function
         public string Status { get; set; }
 
-        public FileData(string host, string username, string password, string remotePath, string basePath)
+        public FileData(string host, string username, string password, string remotePath)
         {
             Host = host;
             Username = username;
             Password = password;
             RemoteFilePath = remotePath;
-            SetLocalPath(basePath);
             Status = "Waiting";
         }
 
