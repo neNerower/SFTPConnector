@@ -46,22 +46,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserControls\FileSystemGuide.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\FileSystemGuide.Designer.cs">
+      <DependentUpon>FileSystemGuide.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TaskTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\TaskTable.Designer.cs">
       <DependentUpon>TaskTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\FileSystemGuide.resx">
+      <DependentUpon>FileSystemGuide.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TaskTable.resx">
       <DependentUpon>TaskTable.cs</DependentUpon>
