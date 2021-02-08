@@ -18,14 +18,14 @@ namespace SFTPConnectorLib.Models
         {
             return tasks;//EMPTY LIST IF IT WASNT UPLOADED ALREADY
         }
-        public void SetTasks(string taskFilePath)
+        public void SetTask(string taskFilePath)
         {
             //загрузка данных из csv-файла в Tasks
             var taskReader = new CsvTaskReader(taskFilePath);
             tasks = taskReader.Read().ToList();
         }
 
-        public void UpdateLocalPath(string basePath)
+        public void SetBaseFolder(string basePath)
         {
             foreach (FileData fileData in tasks)
             {

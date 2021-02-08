@@ -31,6 +31,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabelLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.taskTable = new SFTPConnector_1._0.UserControls.TaskTable();
+            this.fsGuide = new SFTPConnector_1._0.UserControls.FileSystemGuide();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,11 +40,10 @@
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabelLayoutPanel1.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -69,6 +69,7 @@
             this.tabelLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tabelLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tabelLayoutPanel1.Controls.Add(this.taskTable, 2, 1);
+            this.tabelLayoutPanel1.Controls.Add(this.fsGuide, 2, 0);
             this.tabelLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabelLayoutPanel1.Location = new System.Drawing.Point(3, 31);
             this.tabelLayoutPanel1.Name = "tabelLayoutPanel1";
@@ -87,6 +88,13 @@
             this.taskTable.Size = new System.Drawing.Size(748, 370);
             this.taskTable.TabIndex = 0;
             // 
+            // fsGuide
+            // 
+            this.fsGuide.Location = new System.Drawing.Point(23, 3);
+            this.fsGuide.Name = "fsGuide";
+            this.fsGuide.Size = new System.Drawing.Size(93, 14);
+            this.fsGuide.TabIndex = 1;
+            // 
             // mainMenuStrip
             // 
             this.mainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -104,7 +112,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
@@ -154,10 +163,13 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
-            // fileSystemWatcher1
+            // saveToolStripMenuItem
             // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.SynchronizingObject = this;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -171,7 +183,6 @@
             this.tabelLayoutPanel1.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -189,7 +200,8 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private UserControls.FileSystemGuide fsGuide;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
     }
 }
 

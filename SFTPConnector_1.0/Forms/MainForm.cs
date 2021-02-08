@@ -19,20 +19,12 @@ namespace SFTPConnector_1._0
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (openFileDialog.ShowDialog() != DialogResult.OK)
-            //    return;
+            fsGuide.BrowsFile(taskTable.SetTask);
+        }
 
-            ////УСТАНОВИТЬ ЗАНЧЕНИЕ ПУТИ ДО ФАЙЛА
-            //using (FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
-            //{
-            //    Settings.SetCsvTaskFilePath(fileStream.Name);
-            //    openFileDialog.InitialDirectory = fileStream.Name.Replace(openFileDialog.FileName, "");
-            //}
-            //string taskPath = fileSy
-
-            ////ЗАГРУЗКА ДАННЫХ ИЗ НАЙДЕННОГО ФАЙЛА
-            //taskTable.LoadTask(taskPath);
-
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fsGuide.BrowsFolder(taskTable.SetBaseFolder);
         }
     }
 }

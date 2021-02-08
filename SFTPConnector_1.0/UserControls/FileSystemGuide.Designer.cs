@@ -28,27 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
-            // openFileDialog1
+            // openFileDialog
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog.DefaultExt = "csv";
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.Filter = "Csv files(*.csv)|*.csv";
+            this.openFileDialog.Title = "SFTP Controller | Open file";
+            // 
+            // folderBrowserDialog
+            // 
+            this.folderBrowserDialog.Description = "Select the directory that you want to download files in";
+            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
             // FileSystemGuide
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "FileSystemGuide";
-            this.Size = new System.Drawing.Size(93, 66);
+            this.Size = new System.Drawing.Size(16, 20);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }
