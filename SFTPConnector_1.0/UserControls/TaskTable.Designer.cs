@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.taskDataTable = new System.Windows.Forms.DataGridView();
+            this.taskListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.taskDataTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // taskDataTable
             // 
+            this.taskDataTable.AutoGenerateColumns = false;
             this.taskDataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.taskDataTable.DataSource = this.taskListBindingSource;
             this.taskDataTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskDataTable.Location = new System.Drawing.Point(0, 0);
             this.taskDataTable.Name = "taskDataTable";
@@ -42,6 +47,10 @@
             this.taskDataTable.RowTemplate.Height = 24;
             this.taskDataTable.Size = new System.Drawing.Size(608, 324);
             this.taskDataTable.TabIndex = 0;
+            // 
+            // taskListBindingSource
+            // 
+            this.taskListBindingSource.DataSource = typeof(SFTPConnectorLib.Models.TaskList);
             // 
             // TaskTable
             // 
@@ -51,6 +60,7 @@
             this.Name = "TaskTable";
             this.Size = new System.Drawing.Size(608, 324);
             ((System.ComponentModel.ISupportInitialize)(this.taskDataTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskListBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -58,5 +68,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView taskDataTable;
+        private System.Windows.Forms.BindingSource taskListBindingSource;
     }
 }

@@ -16,14 +16,7 @@ namespace SFTPConnector_1._0.UserControls
             if (openFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            //УСТАНОВИТЬ ЗАНЧЕНИЕ ПУТИ ДО ФАЙЛА
-            string filePath;
-            using (FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open))
-            {
-                filePath = fileStream.Name;
-                openFileDialog.InitialDirectory = filePath.Replace(openFileDialog.FileName, "");
-            }
-            fileAction(filePath);
+            fileAction(openFileDialog.FileName);
         }
 
         public void BrowsFolder(Action<string> folderAction)

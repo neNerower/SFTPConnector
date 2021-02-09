@@ -35,7 +35,6 @@
             // openFileDialog
             // 
             this.openFileDialog.DefaultExt = "csv";
-            this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.Filter = "Csv files(*.csv)|*.csv";
             this.openFileDialog.Title = "SFTP Controller | Open file";
             // 

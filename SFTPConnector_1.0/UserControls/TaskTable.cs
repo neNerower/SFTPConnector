@@ -26,12 +26,11 @@ namespace SFTPConnector_1._0.UserControls
         {
             _taskList.SetTask(taskPath);
             taskDataTable.DataSource = _taskList;
-            this.Refresh();
+            taskDataTable.Refresh();
         }
         public void SetBaseFolder(string basePath)
         {
             _taskList.SetBaseFolder(basePath);
-            this.Refresh();
         }
     }
 }
